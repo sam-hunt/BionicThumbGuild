@@ -34,5 +34,6 @@
     <li>ludeon.rimworld.biotech</li>
     <li>ludeon.rimworld.anomaly</li>
     <li>ludeon.rimworld.odyssey</li>
+    <li>shunter.bettertradersguild</li>
   </loadAfter>
 </ModMetaData>
