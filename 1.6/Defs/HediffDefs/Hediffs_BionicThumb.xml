@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <HediffDef ParentName="AddedBodyPartBase">
+    <defName>BTG_BionicThumb</defName>
+    <label>bionic thumb</label>
+    <labelNoun>a bionic thumb</labelNoun>
+    <description>A full bionic hand, branded and sold by the Bionic Thumb Guild as simply "the bionic thumb." The polyarthric thumb dominates the prosthetic's design — extra articulation points, micro-servo clusters, and a dedicated neural feedback loop all serve the thumb first. The other fingers get whatever engineering budget was left over, which to be fair is still pretty impressive.\n\nPopular among coin collectors, card sharks, and anyone who respects good branding.</description>
+    <descriptionHyperlinks>
+      <ThingDef>BTG_BionicThumb</ThingDef>
+    </descriptionHyperlinks>
+    <spawnThingOnRemoved>BTG_BionicThumb</spawnThingOnRemoved>
+    <addedPartProps>
+      <solid>true</solid>
+      <partEfficiency>1.20</partEfficiency>
+      <betterThanNatural>true</betterThanNatural>
+    </addedPartProps>
+  </HediffDef>
+
+</Defs>

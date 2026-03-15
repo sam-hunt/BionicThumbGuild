@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <ThingDef ParentName="BodyPartBionicBase">
+    <defName>BTG_BionicThumb</defName>
+    <label>bionic thumb</label>
+    <description>The flagship product of the Bionic Thumb Guild: a full bionic hand prosthetic built entirely around the perfect thumb. Every servo, joint, and actuator in the other four fingers exists to support the thumb's extraordinary polyarthric range of motion. The Guild's engineers insist the name is accurate — the thumb is the hand, the rest is just scaffolding.\n\nFlip coins with superhuman precision. The other fingers are just along for the ride.</description>
+    <descriptionHyperlinks>
+      <RecipeDef>BTG_InstallBionicThumb</RecipeDef>
+    </descriptionHyperlinks>
+    <costList>
+      <Plasteel>15</Plasteel>
+      <ComponentSpacer>2</ComponentSpacer>
+    </costList>
+    <statBases>
+      <Mass>1</Mass>
+    </statBases>
+  </ThingDef>
+
+</Defs>

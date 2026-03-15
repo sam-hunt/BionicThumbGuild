@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <RecipeDef ParentName="SurgeryInstallBodyPartArtificialBase">
+    <defName>BTG_InstallBionicThumb</defName>
+    <label>install bionic thumb</label>
+    <description>Install a bionic thumb. It's a whole hand, but the Guild insists you call it a thumb.</description>
+    <descriptionHyperlinks>
+      <ThingDef>BTG_BionicThumb</ThingDef>
+      <HediffDef>BTG_BionicThumb</HediffDef>
+    </descriptionHyperlinks>
+    <jobString>Installing bionic thumb.</jobString>
+    <ingredients>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>BTG_BionicThumb</li>
+          </thingDefs>
+        </filter>
+        <count>1</count>
+      </li>
+    </ingredients>
+    <fixedIngredientFilter>
+      <thingDefs>
+        <li>BTG_BionicThumb</li>
+      </thingDefs>
+    </fixedIngredientFilter>
+    <appliedOnFixedBodyParts>
+      <li>Hand</li>
+    </appliedOnFixedBodyParts>
+    <addsHediff>BTG_BionicThumb</addsHediff>
+  </RecipeDef>
+
+</Defs>

@@ -1,0 +1,45 @@
+name: Build and Release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Build
+        run: dotnet build BionicThumbGuild.sln -c Release
+
+      - name: Package mod
+        run: |
+          set -e
+          mkdir -p release/BionicThumbGuild/About
+          mkdir -p release/BionicThumbGuild/1.6/Assemblies
+          mkdir -p release/BionicThumbGuild/1.6/Defs
+          mkdir -p release/BionicThumbGuild/1.6/Patches
+          cp About/About.xml release/BionicThumbGuild/About/
+          [ -f About/Preview.png ] && cp About/Preview.png release/BionicThumbGuild/About/ || true
+          cp LoadFolders.xml release/BionicThumbGuild/
+          cp 1.6/Assemblies/BionicThumbGuild.dll release/BionicThumbGuild/1.6/Assemblies/
+          [ -d 1.6/Defs ] && [ "$(ls -A 1.6/Defs)" ] && cp -r 1.6/Defs/* release/BionicThumbGuild/1.6/Defs/ || true
+          [ -d 1.6/Patches ] && [ "$(ls -A 1.6/Patches)" ] && cp -r 1.6/Patches/* release/BionicThumbGuild/1.6/Patches/ || true
+          cd release && zip -r ../BionicThumbGuild-${{ github.ref_name }}.zip BionicThumbGuild
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: BionicThumbGuild-${{ github.ref_name }}.zip
+          generate_release_notes: true
+          prerelease: ${{ contains(github.ref_name, 'beta') || contains(github.ref_name, 'alpha') || contains(github.ref_name, '-rc') }}
