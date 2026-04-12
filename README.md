@@ -6,7 +6,7 @@
 [![Version](https://img.shields.io/badge/Version-1.0.0-brightgreen.svg)](https://github.com/sam-hunt/BionicThumbGuild/releases)
 [![Development Status](https://img.shields.io/badge/Status-Stable-brightgreen.svg)](https://github.com/sam-hunt/BionicThumbGuild/releases)
 
-![Preview](About/Preview.png)
+![Preview](About/preview.png)
 
 ## About
 
