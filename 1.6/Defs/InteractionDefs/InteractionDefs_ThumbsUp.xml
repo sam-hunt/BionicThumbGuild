@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <InteractionDef>
+    <defName>BTG_ThumbsUp</defName>
+    <label>thumbs up</label>
+    <workerClass>BionicThumbGuild.InteractionWorker_ThumbsUp</workerClass>
+    <symbol>Things/Mote/SpeechSymbols/ThumbsUp</symbol>
+    <recipientThought>BTG_ThumbsUp</recipientThought>
+    <logRulesInitiator>
+      <rulesStrings>
+        <li>r_logentry->[INITIATOR_nameDef] gave [RECIPIENT_nameDef] a thumbs up.</li>
+        <li>r_logentry->[INITIATOR_nameDef] flashed [RECIPIENT_nameDef] a bionic thumbs up.</li>
+        <li>r_logentry->[INITIATOR_nameDef] made a thumbs-up gesture at [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] pointed a bionic thumb at [RECIPIENT_nameDef] approvingly.</li>
+        <li>r_logentry->[INITIATOR_nameDef] gave [RECIPIENT_nameDef] a thumbs up so enthusiastic the servo whirred.</li>
+        <li>r_logentry->[INITIATOR_nameDef] extended a gleaming bionic thumb in [RECIPIENT_nameDef]'s direction.</li>
+        <li>r_logentry->[INITIATOR_nameDef] did the thumb thing at [RECIPIENT_nameDef] again.</li>
+      </rulesStrings>
+    </logRulesInitiator>
+  </InteractionDef>
+
+</Defs>

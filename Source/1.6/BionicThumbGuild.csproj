@@ -84,7 +84,7 @@
   </PropertyGroup>
   <!-- Clean deployed mod folder (use: dotnet build -t:CleanModFolder) -->
   <Target Name="CleanModFolder" Condition="'$(UseLocalRimWorld)' == 'true'">
-    <RemoveDir Directories="$(ModDeployPath)/About;$(ModDeployPath)/1.6" />
+    <RemoveDir Directories="$(ModDeployPath)/About;$(ModDeployPath)/1.6;$(ModDeployPath)/Textures" />
     <Delete Files="$(ModDeployPath)/LoadFolders.xml" />
     <Message Text="Cleaned deployed mod folder: $(ModDeployPath)" Importance="high" />
   </Target>
@@ -95,11 +95,13 @@
       <DefFiles Include="$(MSBuildProjectDirectory)/../../1.6/Defs/**/*" Exclude="$(MSBuildProjectDirectory)/../../1.6/Defs/**/*.md" />
       <PatchFiles Include="$(MSBuildProjectDirectory)/../../1.6/Patches/**/*" />
       <LoadFoldersFile Include="$(MSBuildProjectDirectory)/../../LoadFolders.xml" />
+      <TextureFiles Include="$(MSBuildProjectDirectory)/../../Textures/**/*" />
     </ItemGroup>
     <Copy SourceFiles="@(AboutFiles)" DestinationFiles="@(AboutFiles->'$(ModDeployPath)/About/%(RecursiveDir)%(Filename)%(Extension)')" SkipUnchangedFiles="true" />
     <Copy SourceFiles="@(AssemblyFiles)" DestinationFiles="@(AssemblyFiles->'$(ModDeployPath)/1.6/Assemblies/%(Filename)%(Extension)')" SkipUnchangedFiles="true" />
     <Copy SourceFiles="@(DefFiles)" DestinationFiles="@(DefFiles->'$(ModDeployPath)/1.6/Defs/%(RecursiveDir)%(Filename)%(Extension)')" SkipUnchangedFiles="true" />
     <Copy SourceFiles="@(PatchFiles)" DestinationFiles="@(PatchFiles->'$(ModDeployPath)/1.6/Patches/%(RecursiveDir)%(Filename)%(Extension)')" SkipUnchangedFiles="true" />
     <Copy SourceFiles="@(LoadFoldersFile)" DestinationFolder="$(ModDeployPath)" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="@(TextureFiles)" DestinationFiles="@(TextureFiles->'$(ModDeployPath)/Textures/%(RecursiveDir)%(Filename)%(Extension)')" SkipUnchangedFiles="true" />
   </Target>
 </Project>
