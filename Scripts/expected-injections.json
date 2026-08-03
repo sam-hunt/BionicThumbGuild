@@ -5,7 +5,13 @@
       "Core"
     ],
     "modPackageId": "shunter.bionicthumbguild",
-    "modName": "Bionic Thumb Guild"
+    "modName": "Bionic Thumb Guild",
+    "activeMods": [
+      "brrainz.harmony",
+      "ludeon.rimworld",
+      "shunter.bionicthumbguild",
+      "shunter.l10nprobe"
+    ]
   },
   "defInjections": {
     "HediffDef": {
