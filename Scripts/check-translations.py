@@ -86,11 +86,21 @@ PARITY_EXEMPT_FIELDS = set()
 REQUIRED_DLCS = set()
 
 
+# Def XML may declare a def via a subclass the game rolls into a base-type
+# database — the probe's walker (the game's own) then dumps those defs under
+# the base type, and DefInjected translations legally target that base-type
+# folder. Map each subclass element tag seen in this repo's Defs/ to the def
+# type the dump actually uses. Empty here today; ArchotechAndroidHardware's
+# copy carries the first real entry (VREA's AndroidGeneDef -> GeneDef).
+DEF_TYPE_ALIASES = {}
+
+
 def norm(text):
-    # The game unescapes literal "\n" sequences in def XML into real newlines
-    # at load time, so sidecar English (dumped live) and raw XML disagree on
-    # them; fold both forms into plain whitespace before comparing.
-    return re.sub(r"\s+", " ", (text or "").replace("\\n", " ").strip())
+    # The game decodes literal "\n" escapes in def XML text at load, so the
+    # sidecar (dumped game-side) holds real newlines where the XML holds two
+    # characters; decode before collapsing whitespace or every multi-paragraph
+    # description reads as drifted.
+    return re.sub(r"\s+", " ", (text or "").replace("\\n", "\n").strip())
 
 
 def placeholders(text):
@@ -190,7 +200,8 @@ def collect_defs(defs_dirs):
                     continue
                 def_name = elem.findtext("defName")
                 if def_name:
-                    defs.setdefault(elem.tag, {})[def_name] = elem
+                    def_type = DEF_TYPE_ALIASES.get(elem.tag, elem.tag)
+                    defs.setdefault(def_type, {})[def_name] = elem
     return defs
 
 
