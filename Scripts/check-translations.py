@@ -87,7 +87,10 @@ REQUIRED_DLCS = set()
 
 
 def norm(text):
-    return re.sub(r"\s+", " ", (text or "").strip())
+    # The game unescapes literal "\n" sequences in def XML into real newlines
+    # at load time, so sidecar English (dumped live) and raw XML disagree on
+    # them; fold both forms into plain whitespace before comparing.
+    return re.sub(r"\s+", " ", (text or "").replace("\\n", " ").strip())
 
 
 def placeholders(text):
@@ -409,9 +412,13 @@ def main():
                  ([args.root / "Languages"] if (args.root / "Languages").is_dir() else [])
     defs_dirs = sorted(args.root.glob("*/Defs")) + \
                 ([args.root / "Defs"] if (args.root / "Defs").is_dir() else [])
+    # Unlike the sibling repos, this mod ships no Languages/ tree yet (its
+    # translatable surface is DefInjected only, and there are no Keyed
+    # strings in code) — that is a legal state, not a config error. The
+    # sidecar freshness check below still guards Defs/ drift either way.
     if not lang_roots:
-        print(f"No Languages/ directory found under {args.root}", file=sys.stderr)
-        return 2
+        print(f"note: no Languages/ directory under {args.root} — no "
+              "translations shipped yet; checking sidecar freshness only.")
 
     report = Report()
     sidecar = load_sidecar(args.root, report)
@@ -428,8 +435,8 @@ def main():
                 languages.append(lang_dir)
 
     if not english_keyed:
-        print("No English Keyed strings found; nothing to check against.", file=sys.stderr)
-        return 2
+        print("note: no English Keyed strings — this mod has no Keyed "
+              "surface; DefInjected checks run against the sidecar alone.")
 
     defs = collect_defs(defs_dirs)
     check_sidecar_freshness(defs, sidecar, report)
