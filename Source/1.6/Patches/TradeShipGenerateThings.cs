@@ -4,10 +4,8 @@ using Verse;
 
 namespace BionicThumbGuild.TraderPatches
 {
-    /// <summary>
-    /// Adds 2x bionic thumbs to all orbital trader (passing ship) inventories
-    /// after their stock is generated.
-    /// </summary>
+    // Adds 2x bionic thumbs to all orbital trader (passing ship) inventories
+    // after their stock is generated.
     [HarmonyPatch(typeof(TradeShip), nameof(TradeShip.GenerateThings))]
     public static class TradeShip_GenerateThings_Postfix
     {

@@ -4,15 +4,13 @@ using Verse;
 
 namespace BionicThumbGuild.TraderPatches
 {
-    /// <summary>
-    /// Adds 2x bionic thumbs to Traders Guild settlement inventories after stock
-    /// is regenerated. Only targets TradersGuild faction settlements; other faction
-    /// settlements are unaffected. RegenerateStock is protected, so we use a string
-    /// method name instead of nameof().
-    ///
-    /// It's really just for compatibility with BetterTradersGuild since Guild
-    /// settlements don't have trade inventory comps in vanilla Odyssey iirc
-    /// </summary>
+    // Adds 2x bionic thumbs to Traders Guild settlement inventories after stock
+    // is regenerated. Only targets TradersGuild faction settlements; other faction
+    // settlements are unaffected. RegenerateStock is protected, so we use a string
+    // method name instead of nameof().
+    //
+    // It's really just for compatibility with BetterTradersGuild since Guild
+    // settlements don't have trade inventory comps in vanilla Odyssey iirc
     [HarmonyPatch(typeof(Settlement_TraderTracker), "RegenerateStock")]
     public static class SettlementTrader_RegenerateStock_Postfix
     {
