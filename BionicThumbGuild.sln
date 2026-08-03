@@ -7,6 +7,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1.6", "1.6", "{16000000-000
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BionicThumbGuild", "Source\1.6\BionicThumbGuild.csproj", "{D4E5F6A7-B8C9-4D0E-AF12-3B4C5D6E7F80}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BionicThumbGuild.Tests", "Tests\1.6\BionicThumbGuild.Tests.csproj", "{D5A7736B-003A-4D26-9A66-E0E9CC6A639F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,11 +19,16 @@ Global
 		{D4E5F6A7-B8C9-4D0E-AF12-3B4C5D6E7F80}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D4E5F6A7-B8C9-4D0E-AF12-3B4C5D6E7F80}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D4E5F6A7-B8C9-4D0E-AF12-3B4C5D6E7F80}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5A7736B-003A-4D26-9A66-E0E9CC6A639F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5A7736B-003A-4D26-9A66-E0E9CC6A639F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5A7736B-003A-4D26-9A66-E0E9CC6A639F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5A7736B-003A-4D26-9A66-E0E9CC6A639F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{D4E5F6A7-B8C9-4D0E-AF12-3B4C5D6E7F80} = {16000000-0000-0000-0000-000000000000}
+		{D5A7736B-003A-4D26-9A66-E0E9CC6A639F} = {16000000-0000-0000-0000-000000000000}
 	EndGlobalSection
 EndGlobal
