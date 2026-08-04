@@ -27,8 +27,8 @@ dotnet build Source/1.6/BionicThumbGuild.csproj
 # Full clean rebuild
 dotnet clean BionicThumbGuild.sln && dotnet build BionicThumbGuild.sln -c Release
 
-# Run the test suite (WSL -> Windows PowerShell; net472 runner)
-./Scripts/test-windows.sh
+# Run the test suite (native; vstest hosts the net472 suite via mono)
+dotnet test Tests/1.6/BionicThumbGuild.Tests.csproj
 
 # Validate translations / sidecar freshness
 python3 Scripts/check-translations.py --strict
@@ -70,7 +70,7 @@ Source/1.6/
 Textures/           # Root-level (LoadFolders.xml loads "/"): thumbs-up speech symbol
 
 Tests/1.6/          # Headless xUnit (net472) suite
-Scripts/            # test-windows.sh, translation checker/refresh, sidecar
+Scripts/            # Translation checker/refresh, sidecar
 ```
 
 ### .claude layout
@@ -108,7 +108,7 @@ Scripts/            # test-windows.sh, translation checker/refresh, sidecar
 
 ## Testing
 
-`Tests/1.6/` holds an xUnit (net472) suite. This mod has no extractable pure logic, so the tests pin what breaks silently at runtime: Harmony patch targets (including the string-literal `"RegenerateStock"` name), postfix wiring, the interaction worker's override shape, and the `BionicThumbDefOf` field both patches rely on. Tests are headless — anything needing `DefDatabase`/`Current.Game`/`ThingMaker` is out of scope. Run with `./Scripts/test-windows.sh` (WSL shells out to Windows PowerShell because the net472 runner can't be hosted by WSL's dotnet; it robocopies the test bin to local NTFS first, and treats "0 tests discovered" as failure). CI builds the Tests project but does not run it.
+`Tests/1.6/` holds an xUnit (net472) suite. This mod has no extractable pure logic, so the tests pin what breaks silently at runtime: Harmony patch targets (including the string-literal `"RegenerateStock"` name), postfix wiring, the interaction worker's override shape, and the `BionicThumbDefOf` field both patches rely on. Tests are headless — anything needing `DefDatabase`/`Current.Game`/`ThingMaker` is out of scope. Run natively with `dotnet test Tests/1.6/BionicThumbGuild.Tests.csproj` — vstest hosts the net472 suite via mono. If a run fails with `BadImageFormatException`/`TypeLoadException`, a DLL is missing from the test csproj copy target (see the Assembly-CSharp-firstpass comment there): mono resolves field types eagerly where the Windows CLR is lazy. CI builds the Tests project but does not run it.
 
 ## Localization
 
