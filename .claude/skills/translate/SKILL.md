@@ -92,9 +92,21 @@ the source of truth; every other language derives from it.
   checker enforces the sidecar's `required` subset per language and fails on
   stale expectations, so new content of *any* shape forces a regen rather
   than a manifest edit.
+- **`1.6/Defs/` is NOT the translation surface — it is a strict subset of
+  it, and this mod has no English DefInjected tree at all to fall back on
+  either.** Enumerate from the sidecar's `required` entries per def type,
+  not from scanning `1.6/Defs/` or hand-listing defNames, and take the
+  English source text for each entry from the sidecar's `english` field
+  (which is also what the checker compares `<!-- EN: -->` comments
+  against, so sourcing EN comments from it programmatically makes drift
+  impossible). The def XML view is a useful map of *where* the mod's own
+  content lives, but the sidecar is the only complete and authoritative
+  list of *what* needs a translation.
 - **This mod requires no DLC** (`About.xml` has no `modDependencies` beyond
-  Harmony) and gates no content behind `MayRequire` — `REQUIRED_DLCS` in
-  the checker is empty. Ground every term against **Core only**; Biotech,
+  Harmony) and gates no content behind `MayRequire`, so it ships no
+  `1.6/Mods/<Name>/` compat load root today (contrast the sibling mods,
+  which route MayRequire-gated content there) — `REQUIRED_DLCS` in the
+  checker is empty. Ground every term against **Core only**; Biotech,
   Royalty, Odyssey and Anomaly vocabulary is out of scope unless a specific
   vanilla phrase is being reused verbatim as a style reference for a
   concept Core doesn't otherwise cover (see the trader-price rows below,
@@ -777,17 +789,19 @@ that one axis, even though it has no combat and no RulePackDefs.
 
 ### Initial generation (`/translate <Language>`)
 
-1. Run the checker; confirm English itself is clean. If
-   `1.6/Languages/English/` does not exist yet, this is the very first
-   language pass for this mod — read every def's inline label/description
-   (see "File map and conventions" above) as the English source instead of
-   an English Keyed file, since this mod has none.
-2. Enumerate the DefInjected surface: `BTG_BionicThumb` (ThingDef and
-   HediffDef), `BTG_InstallBionicThumb`, `BTG_ThumbsUp` (InteractionDef and
-   ThoughtDef both use this defName — don't conflate the two DefInjected
-   folders), `BTG_ThumbsUpMood`. Cross-check against
-   `Scripts/expected-injections.json` rather than assuming the def XML is
-   the full list (inherited/C#-default fields can add more — see above).
+1. Run the checker; confirm English itself is clean (sidecar freshness —
+   this mod has no English Keyed or DefInjected files to check directly,
+   see "File map and conventions" above).
+2. Enumerate the target key set from `Scripts/expected-injections.json`'s
+   `required` entries per def type, taking the English source text from
+   each entry's `english` field — NOT from `1.6/Defs/`, which is only a
+   partial view (inherited `ParentName` base fields and C#-default strings
+   don't show up there — see above). Today that surface happens to be
+   `BTG_BionicThumb` (ThingDef and HediffDef), `BTG_InstallBionicThumb`,
+   `BTG_ThumbsUp` (InteractionDef and ThoughtDef both use this defName —
+   don't conflate the two DefInjected folders), and `BTG_ThumbsUpMood`, but
+   the sidecar — not this list — is what to enumerate from; it is what
+   catches the day this surface grows.
 3. If translating a language with grounded Core vocabulary needs, extract
    the vanilla Core tar for the target language into the scratchpad; build
    a term list for bionic/surgery/interaction/thought vocabulary (see
