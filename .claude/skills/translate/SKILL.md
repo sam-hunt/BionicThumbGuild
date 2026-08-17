@@ -56,6 +56,11 @@ the source of truth; every other language derives from it.
   **No `Keyed/` folder is needed for any language, including English** —
   don't create one speculatively; add it only if this mod ever grows a
   settings window or other free-standing prose.
+- The Steam Workshop title/description (`.steamworkshop/Description/`) is a
+  separate translation surface from in-game DefInjected content, tracked by
+  the `release` skill rather than this one. If this mod ever localizes the
+  Workshop title, keep it in sync with `.steamworkshop/README.md`'s title
+  convention; don't let it drift independently of any language added here.
 - `<DefTypeFolder>` must be the def's resolvable type name: bare, since every
   def type this mod uses (`ThingDef`, `HediffDef`, `RecipeDef`,
   `InteractionDef`, `ThoughtDef`) is a vanilla type — this mod defines no C#

@@ -16,3 +16,5 @@
 
 - thumb link/grip unique weapon trait that adds +5.0 shooting accuracy when used by a pawn with a Bionic Thumb (tm) installed
 - capitalize the T for thumb in thing/hediff labels
+
+- Workshop description structure/process landed 2026-08-18 (`.steamworkshop/`, English only so far). If/when in-game localization is added, run the initial Workshop description translations (per-language files, localized titles per `.steamworkshop/README.md`).

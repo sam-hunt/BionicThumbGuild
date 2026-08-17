@@ -1,0 +1,50 @@
+Bionic Thumb Guild
+
+[h1]About[/h1]
+The Bionic Thumb Guild is proud to present its flagship product: [b]the Bionic Thumb[/b].
+
+"But it's a whole hand," you say. Yes. The Guild knows. They just really, really care about thumbs. Every servo, joint, and actuator in the other four fingers exists to support the thumb's extraordinary polyarthric range of motion. The Guild's engineers insist the name is accurate - the thumb [i]is[/i] the hand, the rest is just scaffolding.
+
+[hr][/hr]
+[h2]Features[/h2]
+[list]
+[*][b]Bionic Thumb[/b] - A full bionic hand prosthetic with 120% manipulation efficiency. Named "bionic thumb" because the Guild's marketing department can't legally call it a hand anymore.
+[*][b]Surgical Installation[/b] - Your doctor will respect your privacy and not question the name.
+[*][b]Orbital Trader Stocked[/b] - Orbital Traders give two thumbs up! For a price of course. Sales reps, sales reps everywhere.
+[/list]
+
+[hr][/hr]
+[h1]Compatibility[/h1]
+[list]
+[*]Safe to add to existing saves. The Thumb Guild welcomes all.
+[*]Removable from saves - but colonists with Bionic Thumbs installed might lose their entire hand, I don't know. The Guild gave you a thumb and you threw it away. This is what you deserve.
+[*]Should be compatible with most mods. It's a thumb. If your mod list can't handle a thumb, then I can't give it a high five.
+[*]Requires [url=https://steamcommunity.com/workshop/filedetails/?id=2009463077]Harmony[/url].
+[/list]
+
+[hr][/hr]
+[h1]FAQ[/h1]
+[b]Q: Why is it called a bionic thumb if it replaces the whole hand?[/b]
+A: The Guild's branding is final. Further questions will be forwarded to legal.
+
+[b]Q: Is this balanced?![/b]
+A: It's a bionic hand with 120% manipulation. It's basically vanilla, just with better marketing.
+
+[b]Q: Can I install one on each hand?[/b]
+A: Does your surgeon have thumbs? It's two thumbs up from the Guild. Rule of Thumb: Yes.
+
+[b]Q: Is this a joke mod?[/b]
+A: Are your colonists' thumbs a joke to you??
+
+[b]Q: Why tho[/b]
+A: I can't draw hands well yet, which apparently requires some kind of narrative. Check out [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3684587591]Better Traders Guild[/url] for more.
+
+[b]Q: Why should I use this instead of EPOE or Rah's??[/b]
+A: It's a joke mod. It's lightweight and vanilla-balanced though I guess? Maybe just be kind to people learning to draw?
+
+[hr][/hr]
+[h2]Links[/h2]
+[url=https://github.com/sam-hunt/BionicThumbGuild]GitHub[/url] - Source code, bug reports, and feature requests
+Also check out [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3684587591]Better Traders Guild[/url] - my non-joke mod that expands the Traders Guild faction with peaceful trading, custom settlements, and new scenarios
+
+The Bionic Thumb Guild: because every hand deserves a better thumb.
