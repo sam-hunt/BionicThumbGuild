@@ -31,4 +31,9 @@ engine.DEF_TYPE_ALIASES = {}
 # sidecar freshness alone rather than failing.
 engine.ALLOW_NO_KEYED_SURFACE = True
 
+# No Keyed surface ships yet, so there is no settings-header key to
+# couple the Workshop title to; the description format and coverage
+# checks still run against .steamworkshop/Description/.
+engine.WORKSHOP_TITLE_KEY = None
+
 raise SystemExit(engine.main())
