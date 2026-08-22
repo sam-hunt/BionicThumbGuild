@@ -81,6 +81,8 @@ Scripts/            # Translation checker/refresh, sidecar
 
 **Harmony Patching:** All patches use `[HarmonyPatch]` attributes for automatic discovery. Patches are organized by target class in subdirectories under `Patches/`.
 
+**Patch-timing hazard (other mods' methods):** applying a Harmony detour JIT-compiles the target method, which runs its declaring type's static ctor — done before defs load, a target cctor that resolves defs breaks permanently (the BetterTradersGuild v1.1.0 CWTL incident). This repo patches from `[StaticConstructorOnStartup]` (post-defs), which guards against it; that placement is load-bearing — never move `PatchAll()` onto a `Mod` constructor path, especially for a patch targeting another mod's method. Worked example when ctor-time patching is required: BetterTradersGuild's `Core/DeferredModPatches.cs`.
+
 **Namespace Convention:** Use `*Patches` suffix for patch namespaces to avoid RimWorld type conflicts (e.g., `TraderPatches`).
 
 **DefOf References:** `BionicThumbDefOf.BTG_BionicThumb` is populated by RimWorld's `[DefOf]` startup scan matching field *names* against defNames — a rename silently leaves the field null (the test suite pins this).
