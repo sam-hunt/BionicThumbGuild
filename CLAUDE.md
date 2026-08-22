@@ -112,6 +112,8 @@ Scripts/            # Translation checker/refresh, sidecar
 
 `Tests/1.6/` holds an xUnit (net472) suite. This mod has no extractable pure logic, so the tests pin what breaks silently at runtime: Harmony patch targets (including the string-literal `"RegenerateStock"` name), postfix wiring, the interaction worker's override shape, and the `BionicThumbDefOf` field both patches rely on. Tests are headless — anything needing `DefDatabase`/`Current.Game`/`ThingMaker` is out of scope. Run natively with `dotnet test Tests/1.6/BionicThumbGuild.Tests.csproj` — vstest hosts the net472 suite via mono. If a run fails with `BadImageFormatException`/`TypeLoadException`, a DLL is missing from the test csproj copy target (see the Assembly-CSharp-firstpass comment there): mono resolves field types eagerly where the Windows CLR is lazy. CI builds the Tests project but does not run it.
 
+**Startup smoke test (pre-release):** `python3 Scripts/integration-smoke-test.py` (game closed) boots the mod on its pinned minimal list, then classifies Player.log errors by origin and fails on anything attributed to this mod. Run before every release (wired into the release skill); thin shim over the shared engine in `l10n/smoke/` (born from the BetterTradersGuild v1.1.0 CWTL incident).
+
 ## Localization
 
 English lives in the Defs XML — this mod ships **no Keyed strings** (no settings UI) and no `Languages/` tree yet; its entire translatable surface is DefInjected. This mod's own facts and per-language interaction-log analysis live in the `translate` skill (`glossary/<Language>.md` beside it); the contributor-facing rules and the language roster live in `CONTRIBUTING.md`.
