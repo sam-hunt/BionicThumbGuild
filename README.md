@@ -3,8 +3,10 @@
 > A RimWorld mod that adds the Bionic Thumb Guild's flagship product: a full bionic hand that they insist on calling a thumb
 
 [![RimWorld](https://img.shields.io/badge/RimWorld-1.6-blue.svg)](https://rimworldgame.com/)
-[![Version](https://img.shields.io/badge/Version-1.0.0-brightgreen.svg)](https://github.com/sam-hunt/BionicThumbGuild/releases)
-[![Development Status](https://img.shields.io/badge/Status-Stable-brightgreen.svg)](https://github.com/sam-hunt/BionicThumbGuild/releases)
+[![Subscribers](https://img.shields.io/steam/subscriptions/3685368854?logo=steam&label=subscribers)](https://steamcommunity.com/sharedfiles/filedetails/?id=3685368854)
+[![Downloads](https://img.shields.io/steam/downloads/3685368854?logo=steam&label=downloads)](https://steamcommunity.com/sharedfiles/filedetails/?id=3685368854)
+[![Favorites](https://img.shields.io/steam/favorites/3685368854?logo=steam&label=favorites)](https://steamcommunity.com/sharedfiles/filedetails/?id=3685368854)
+[![Views](https://img.shields.io/steam/views/3685368854?logo=steam&label=views)](https://steamcommunity.com/sharedfiles/filedetails/?id=3685368854)
 
 ![Preview](About/preview.png)
 
