@@ -75,7 +75,7 @@ Scripts/            # Translation checker/refresh, sidecar
 
 ### .claude layout
 
-`.gitignore` tracks only `.claude/skills/` (shared: `release`, `translate`, `rimworld-logs`); `.claude/hooks/` and `.claude/settings.local.json` (Stop-hook wiring, permissions) stay machine-local.
+`.gitignore` tracks only `.claude/skills/` (shared: `release`, `translate`, `rimworld-logs`); `.claude/hooks/` and `.claude/settings.local.json` (Stop-hook wiring, permissions) stay machine-local. The `release` skill's version scheme includes `X.Y.Z-rc.N` release candidates (CHANGELOG-less and Workshop-less, with the suffix only in `modVersion` and `AssemblyInformationalVersion`; `release.yml` treats any suffixed tag as a prerelease to match), so changing the tag or version layout means editing the skill too.
 
 ### Key Patterns
 
