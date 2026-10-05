@@ -40,7 +40,7 @@ The build system auto-detects the RimWorld installation path on Windows/Linux/Ma
 
 The repo lives in `~/dev/BionicThumbGuild`, separate from the RimWorld Mods folder. The csproj's `StageMod` target is the **single source of truth** for what files ship: its ItemGroup feeds both the post-build local deploy (`DeployToModFolder` → `StageMod`, an atomic wipe+recopy of `$RIMWORLD_PATH/Mods/BionicThumbGuild/`, so renamed/deleted files never linger) and the CI release, which invokes the same target with `-p:StageDir=...` so the release zip cannot drift from local deploys. Add/remove shipped files only in that ItemGroup.
 
-A machine-local Claude Code Stop hook (`.claude/hooks/sync-mod.sh`, untracked) rebuilds and redeploys after any turn that touched mod files, so the deployed copy stays fresh without manual builds. Its `find` watch list must cover every content root `StageMod` ships (root, any version folder, and the compat roots `Mods/` and `*/Mods/`), or edits under a missed root silently stop redeploying.
+A Claude Code Stop hook (`.claude/hooks/sync-mod.sh`) rebuilds and redeploys after any turn that touched mod files, so the deployed copy stays fresh without manual builds. Its `find` watch list must cover every content root `StageMod` ships (root, any version folder, and the compat roots `Mods/` and `*/Mods/`), or edits under a missed root silently stop redeploying. The hook is tracked and wired by the tracked `.claude/settings.json`; the script is byte-identical across the mod family and derives the solution, project folder and mod name itself, so change it in the RimworldModTemplate and copy it verbatim, never per repo. It logs to `$TMPDIR/BionicThumbGuild-build.log` and bails when no RimWorld install is found, so CI and contributors without the game are unaffected.
 
 **WSL Setup:** Requires `RIMWORLD_PATH` env var in `~/.bashrc` pointing to the Windows RimWorld install (e.g., `/mnt/c/Program Files (x86)/Steam/steamapps/common/RimWorld`). The csproj auto-detects `RimWorldWin64_Data` when the Linux data folder isn't found.
 
@@ -75,7 +75,7 @@ Scripts/            # Translation checker/refresh, sidecar
 
 ### .claude layout
 
-`.gitignore` tracks only `.claude/skills/` (shared: `release`, `translate`, `rimworld-logs`); `.claude/hooks/` and `.claude/settings.local.json` (Stop-hook wiring, permissions) stay machine-local. The `release` skill's version scheme includes `X.Y.Z-rc.N` release candidates (CHANGELOG-less and Workshop-less, with the suffix only in `modVersion` and `AssemblyInformationalVersion`; `release.yml` treats any suffixed tag as a prerelease to match), so changing the tag or version layout means editing the skill too.
+`.gitignore` carries `.claude/*` followed by `!.claude/skills/`, `!.claude/hooks/` and `!.claude/settings.json`: the skills (`release`, `translate`, `rimworld-logs`), the Stop hook and its wiring are tracked and shared, while `settings.local.json` (personal permissions) stays local per machine. The `release` skill's version scheme includes `X.Y.Z-rc.N` release candidates (CHANGELOG-less and Workshop-less, with the suffix only in `modVersion` and `AssemblyInformationalVersion`; `release.yml` treats any suffixed tag as a prerelease to match), so changing the tag or version layout means editing the skill too.
 
 ### Key Patterns
 
