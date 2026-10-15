@@ -4,12 +4,12 @@
     <LangVersion>latest</LangVersion>
     <IsPackable>false</IsPackable>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <!-- Bionic Thumb Guild has no pure-logic layer: its three behaviors are a
-         Harmony postfix that mutates a live TradeShip's ThingOwner, a Harmony
-         postfix that mutates a live Settlement_TraderTracker's ThingOwner
-         behind a faction-defName gate, and an InteractionWorker that reads a
-         live Pawn's hediffSet. None of that runs without a booted game (real
-         ThingOwner/IThingHolder plumbing, DefDatabase-backed hediff lookups).
+    <!-- Bionic Thumb Guild has no pure-logic layer: its two behaviors are a
+         Harmony postfix that mutates a live TradeShip's ThingOwner and a
+         Harmony postfix that mutates a live Settlement_TraderTracker's
+         ThingOwner behind a faction-defName gate. Neither runs without a
+         booted game (real ThingOwner/IThingHolder plumbing, DefDatabase-backed
+         def lookups).
          So these tests are reflection-only: they pin the shape of the Harmony
          patch attributes and the DefOf field they depend on, catching a wrong
          target type/method name or a defName/field mismatch without needing

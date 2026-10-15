@@ -11,7 +11,6 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - Bionic Thumb artificial body part (ThingDef) with matching hediff at 120% manipulation efficiency
 - Surgical installation recipe targeting hands (uses standard surgery base)
 - Harmony patches adding 2x bionic thumbs to orbital trader and Traders Guild settlement stock
-- Thumbs-up social interaction: pawns with the bionic thumb can give a thumbs up, granting a +5 opinion memory and an escalating stacking mood buff (up to five thumbs)
 
 **Key Technologies:** C# (.NET Framework 4.7.2), Harmony library, RimWorld modding API, XML definitions
 
@@ -56,18 +55,13 @@ A Claude Code Stop hook (`.claude/hooks/sync-mod.sh`) rebuilds and redeploys aft
 Source/1.6/
 ├── Core/           # ModInitializer
 ├── DefRefs/        # BionicThumbDefOf ([DefOf] static refs)
-├── Interactions/   # InteractionWorker_ThumbsUp
 ├── Patches/        # Harmony patches (orbital trader + settlement stock hooks)
 └── Properties/     # AssemblyInfo
 
 1.6/Defs/           # XML definitions
 ├── ThingDefs/      # Bionic Thumb body part item
 ├── HediffDefs/     # Bionic Thumb hediff (120% efficiency)
-├── RecipeDefs/     # Installation surgery recipe
-├── InteractionDefs/# Thumbs-up social interaction (grammar-resolved log lines)
-└── ThoughtDefs/    # Thumbs-up opinion memory + stacking mood thought
-
-Textures/           # Root-level (LoadFolders.xml loads "/"): thumbs-up speech symbol
+└── RecipeDefs/     # Installation surgery recipe
 
 Tests/1.6/          # Headless xUnit (net472) suite
 Scripts/            # Translation checker/refresh, sidecar
@@ -103,14 +97,9 @@ Scripts/            # Translation checker/refresh, sidecar
 - Harmony Postfix on `TradeShip.GenerateThings` adds 2x bionic thumbs to orbital traders
 - Harmony Postfix on `Settlement_TraderTracker.RegenerateStock` (protected — patched via string method name) does the same for Traders Guild settlements (BetterTradersGuild compatibility)
 
-**Thumbs-Up Interaction:**
-- `InteractionWorker_ThumbsUp.RandomSelectionWeight` gates on the initiator having the `BTG_BionicThumb` hediff (weight 0.01, inhumanized pawns excluded)
-- Recipient gets `BTG_ThumbsUp` social memory (+5 opinion) which chains to `BTG_ThumbsUpMood`, a five-stage stacking mood thought
-- Interaction log lines are grammar-resolved `rulesStrings` with `[INITIATOR_nameDef]`/`[RECIPIENT_nameDef]` symbols
-
 ## Testing
 
-`Tests/1.6/` holds an xUnit (net472) suite. This mod has no extractable pure logic, so the tests pin what breaks silently at runtime: Harmony patch targets (including the string-literal `"RegenerateStock"` name), postfix wiring, the interaction worker's override shape, and the `BionicThumbDefOf` field both patches rely on. Tests are headless — anything needing `DefDatabase`/`Current.Game`/`ThingMaker` is out of scope. Run natively with `dotnet test Tests/1.6/BionicThumbGuild.Tests.csproj` — vstest hosts the net472 suite via mono. The suite loads the game's real 1.6 runtime assemblies (Krafs's reference-only stubs cannot be loaded at run time); the Tests csproj resolves their folder in order: `RIMWORLD_MANAGED_1_6`, then a 1.6 install's `<Data>/Managed/`, then the frozen copy at `~/.local/share/RimWorld-1.6/Managed` (its README.txt records provenance). A 1.7 install has no 1.6 assemblies at all, so on 1.7 the frozen copy is the only source; without one the build still succeeds on the Krafs fallback but every test fails with `TypeLoadException` on Assembly-CSharp, and that fallback run overwrites any real DLLs an earlier build had copied into the test bin. Otherwise, if a run fails with `BadImageFormatException`/`TypeLoadException`, a DLL is missing from the test csproj copy target (see the Assembly-CSharp-firstpass comment there): mono resolves field types eagerly where the Windows CLR is lazy. CI builds the Tests project but does not run it. The release skill runs the suite and a Release build as its first gate.
+`Tests/1.6/` holds an xUnit (net472) suite. This mod has no extractable pure logic, so the tests pin what breaks silently at runtime: Harmony patch targets (including the string-literal `"RegenerateStock"` name), postfix wiring, and the `BionicThumbDefOf` field both patches rely on. Tests are headless — anything needing `DefDatabase`/`Current.Game`/`ThingMaker` is out of scope. Run natively with `dotnet test Tests/1.6/BionicThumbGuild.Tests.csproj` — vstest hosts the net472 suite via mono. The suite loads the game's real 1.6 runtime assemblies (Krafs's reference-only stubs cannot be loaded at run time); the Tests csproj resolves their folder in order: `RIMWORLD_MANAGED_1_6`, then a 1.6 install's `<Data>/Managed/`, then the frozen copy at `~/.local/share/RimWorld-1.6/Managed` (its README.txt records provenance). A 1.7 install has no 1.6 assemblies at all, so on 1.7 the frozen copy is the only source; without one the build still succeeds on the Krafs fallback but every test fails with `TypeLoadException` on Assembly-CSharp, and that fallback run overwrites any real DLLs an earlier build had copied into the test bin. Otherwise, if a run fails with `BadImageFormatException`/`TypeLoadException`, a DLL is missing from the test csproj copy target (see the Assembly-CSharp-firstpass comment there): mono resolves field types eagerly where the Windows CLR is lazy. CI builds the Tests project but does not run it. The release skill runs the suite and a Release build as its first gate.
 
 **Startup smoke test (pre-release):** `python3 Scripts/integration-smoke-test.py` (game closed) boots the mod on its pinned minimal list, then classifies Player.log errors by origin and fails on anything attributed to this mod. Run before every release (wired into the release skill); thin shim over the shared engine in `l10n/smoke/` (born from the BetterTradersGuild v1.1.0 CWTL incident).
 
@@ -121,7 +110,7 @@ English lives in the Defs XML — this mod ships **no Keyed strings** (no settin
 - **Shared l10n toolkit (`l10n/` submodule):** the family-wide translation process, per-language mechanics references, cross-language lessons, Workshop conventions, and the checker/refresh script engines live in the `rimworld-l10n` repo, consumed here as the `l10n/` git submodule (canonical working checkout: `~/dev/rimworld-l10n`). `Scripts/check-translations.py` and `Scripts/refresh-translation-expectations.py` are thin per-repo config shims over its engines. If `l10n/` is empty, run `git submodule update --init`. Never edit `l10n/` in place here: mod-independent learnings go upstream in the canonical checkout; mod-specific learnings go in this repo's skill/glossary. Upstream ships as semver release tags (`vMAJOR.MINOR.PATCH`; a major means this repo's shim or flow needs an edit), and the pin here moves only at release (release skill step 3), at the start of a translation pass, or when a new major lands, never per upstream commit, so `git submodule status` names the pinned tag and a stable repo's log stays free of pin bumps.
 
 - `python3 Scripts/check-translations.py [--strict]` — deterministic validator (key/placeholder parity, `<!-- EN: ... -->` staleness comments, DefInjected paths, file hygiene). A missing `Languages/` tree is a legal state (`ALLOW_NO_KEYED_SURFACE = True` in the shim); the sidecar freshness check runs regardless. Run by the `translate` and `release` skills and as a CI release gate.
-- `Scripts/expected-injections.json` — checked-in sidecar of every DefInjected key the live game expects for this mod (21 keys across 5 def types); regenerated by `python3 Scripts/refresh-translation-expectations.py` — it boots RimWorld (game must be closed) with a pinned mod list via the L10nProbe dev mod (source lives at `l10n/probe/`; build/deploy it only from the canonical `~/dev/rimworld-l10n` checkout — a submodule copy refuses to deploy by design), then restores `ModsConfig.xml`. Any def added or English label/description edited without a regen fails the checker.
+- `Scripts/expected-injections.json` — checked-in sidecar of every DefInjected key the live game expects for this mod (8 keys across 3 def types); regenerated by `python3 Scripts/refresh-translation-expectations.py` — it boots RimWorld (game must be closed) with a pinned mod list via the L10nProbe dev mod (source lives at `l10n/probe/`; build/deploy it only from the canonical `~/dev/rimworld-l10n` checkout — a submodule copy refuses to deploy by design), then restores `ModsConfig.xml`. Any def added or English label/description edited without a regen fails the checker.
 - CONTRIBUTING.md carries the public roster (English only so far) and must move in the same commit as any language change. **Do not bulk-generate translations** — one language at a time, on request.
 - **Policy:** translation generation passes run only on explicit request (they are token-expensive). Infra/tooling changes are always fine.
 - The Steam Workshop page is a separate source of truth from the in-game surface above: the Workshop title and description live in `.steamworkshop/Description/English.txt` (line 1 title, matching `About/About.xml`'s `<name>`, then a blank line, then the BBCode body), pasted manually into Steam since it has no per-language API. If in-game localization is ever added, localized Workshop titles couple to their own `.steamworkshop/Description/<Language>.txt` files per `.steamworkshop/README.md`.

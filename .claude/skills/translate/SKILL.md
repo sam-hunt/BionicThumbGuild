@@ -1,6 +1,6 @@
 ---
 name: translate
-description: Generate, update, or audit mod localization (DefInjected only — this mod has no Keyed strings) for a target language, grounded in vanilla RimWorld Core terminology for bionic prosthetics, surgery, social interactions, mood thoughts, and trader stock. Use when asked to add a language, update translations, or check translation freshness.
+description: Generate, update, or audit mod localization (DefInjected only — this mod has no Keyed strings) for a target language, grounded in vanilla RimWorld Core terminology for bionic prosthetics, surgery, and trader stock. Use when asked to add a language, update translations, or check translation freshness.
 argument-hint: "[language, e.g. German | update | check]"
 ---
 
@@ -55,20 +55,16 @@ notes for the shim or flow edit this repo owes before continuing.
     (`label`, `labelNoun`, `description`)
   - `1.6/Defs/RecipeDefs/RecipeDefs_BionicThumb.xml` — `BTG_InstallBionicThumb`
     (`label`, `description`, `jobString`)
-  - `1.6/Defs/InteractionDefs/InteractionDefs_ThumbsUp.xml` — `BTG_ThumbsUp`
-    (`label`, and the `logRulesInitiator/rulesStrings` interaction-log lines)
-  - `1.6/Defs/ThoughtDefs/ThoughtDefs_ThumbsUp.xml` — `BTG_ThumbsUp` and
-    `BTG_ThumbsUpMood` (each `<stages><li>`'s `label` and, for the mood
-    thought, `description`) — note `BTG_ThumbsUp` names both an
-    InteractionDef and a ThoughtDef; don't conflate their two DefInjected
-    folders.
-  - All five def types (`ThingDef`, `HediffDef`, `RecipeDef`,
-    `InteractionDef`, `ThoughtDef`) are vanilla types — this mod defines no
+  - All three def types (`ThingDef`, `HediffDef`, `RecipeDef`) are vanilla
+    types — this mod defines no
     C# Def subclass of its own, so every DefInjected folder resolves bare.
   - As always, `Scripts/expected-injections.json` is the authority for the
     exact legal key set (inherited `ParentName` base fields and C#-default
     strings don't show up in this repo's own XML) — see `l10n/process.md`.
-- **`BTG_ThumbsUp`'s `logRulesInitiator/rulesStrings` are grammar-resolved,
+- **The thumbs-up interaction is parked on the `feat/thumbs-up` branch** (its
+  `BTG_ThumbsUp` InteractionDef/ThoughtDef and `BTG_ThumbsUpMood` are not on
+  `main`); the `glossary/` analysis and the note below are staged for it.
+  **`BTG_ThumbsUp`'s `logRulesInitiator/rulesStrings` are grammar-resolved,
   not plain Keyed strings** — they route through RimWorld's full rulepack
   `GrammarResolver` (the same family a weapon mod's combat log reaches), not
   the `GrammarResolverSimple` a plain `"key".Translate()` string reaches (see

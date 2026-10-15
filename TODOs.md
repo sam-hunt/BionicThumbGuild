@@ -2,7 +2,7 @@
 
 ## Features
 
-- Test thumbs up interaction/moodlet
+- Test thumbs up interaction/moodlet (parked on `feat/thumbs-up`, pulled from `main` ahead of the 1.7 release)
   `claude --resume "rimworld-mood-progression-thumbs"`
 
 - Backport improved build/ci architecture from AAH

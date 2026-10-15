@@ -15,9 +15,9 @@ let an agent run it.
 | -------- | ------ | ------ |
 | English  | Source | —      |
 
-No translation files exist yet — English lives only in the Defs/ XML (labels,
-descriptions, interaction log rules), and there is no `Languages/` folder yet
-for any language, including English. Translations for any language RimWorld
+No translation files exist yet — English lives only in the Defs/ XML (labels
+and descriptions), and there is no `Languages/` folder yet for any language,
+including English. Translations for any language RimWorld
 supports are welcome. See "Contributing a translation" below for the
 conventions to follow once that structure is in place.
 
@@ -35,8 +35,8 @@ native speaker), **Planned** (not started — contributions welcome).
   is how stale translations are detected when the English changes.
 - Placeholders (`{0}`, `{1}`, ...) must match the English exactly.
 - This mod's translatable content is DefInjected only, sourced from its
-  ThingDefs, HediffDefs, RecipeDefs, ThoughtDefs, and InteractionDefs
-  (labels, descriptions, and interaction log rules) — there are no Keyed
+  ThingDefs, HediffDefs, and RecipeDefs (labels and descriptions) — there
+  are no Keyed
   strings in code yet.
 - Formatting: UTF-8 without BOM, LF line endings, 2-space indent.
 - Validate before opening a PR:
