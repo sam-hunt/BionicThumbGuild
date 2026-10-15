@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-**Bionic Thumb Guild** is a RimWorld 1.6 mod that adds a bionic thumb prosthetic. Requires Harmony. Does not require any DLC.
+**Bionic Thumb Guild** is a RimWorld 1.6 and 1.7 mod that adds a bionic thumb prosthetic. Requires Harmony. Does not require any DLC.
 
 **Key Features:**
 
@@ -34,7 +34,7 @@ dotnet test Tests/1.6/BionicThumbGuild.Tests.csproj
 python3 Scripts/check-translations.py --strict
 ```
 
-The build system auto-detects the RimWorld installation path on Windows/Linux/Mac (including WSL targeting a Windows install). For CI builds without RimWorld installed, it falls back to the `Krafs.Rimworld.Ref` NuGet package.
+The build compiles against the `Krafs.Rimworld.Ref` NuGet package (pinned to the final 1.6 build, `1.6.4871`) everywhere, locally and in CI; the local RimWorld install is never referenced, only deployed to and decompiled. The install path (auto-detected on Windows/Linux/Mac including WSL targeting a Windows install, or `RIMWORLD_PATH`) decides only whether the build deploys, gated on the game's `Mods/` folder existing so it works on the 1.6 Unity layout and the flat 1.7 Waylith layout alike.
 
 ### Deployment
 
@@ -42,7 +42,7 @@ The repo lives in `~/dev/BionicThumbGuild`, separate from the RimWorld Mods fold
 
 A Claude Code Stop hook (`.claude/hooks/sync-mod.sh`) rebuilds and redeploys after any turn that touched mod files, so the deployed copy stays fresh without manual builds. Its `find` watch list must cover every content root `StageMod` ships (root, any version folder, and the compat roots `Mods/` and `*/Mods/`), or edits under a missed root silently stop redeploying. The hook is tracked and wired by the tracked `.claude/settings.json`; the script is byte-identical across the mod family and derives the solution, project folder and mod name itself, so change it in the RimworldModTemplate and copy it verbatim, never per repo. It logs to `$TMPDIR/BionicThumbGuild-build.log` and bails when no RimWorld install is found, so CI and contributors without the game are unaffected.
 
-**WSL Setup:** Requires `RIMWORLD_PATH` env var in `~/.bashrc` pointing to the Windows RimWorld install (e.g., `/mnt/c/Program Files (x86)/Steam/steamapps/common/RimWorld`). The csproj auto-detects `RimWorldWin64_Data` when the Linux data folder isn't found.
+**WSL Setup:** Requires `RIMWORLD_PATH` env var in `~/.bashrc` pointing to the Windows RimWorld install (e.g., `/mnt/c/Program Files (x86)/Steam/steamapps/common/RimWorld`). The test suite's 1.6 runtime assemblies come from `~/.local/share/RimWorld-1.6/Managed` by default, or `RIMWORLD_MANAGED_1_6` (see Testing).
 
 ## Architecture
 
@@ -110,7 +110,7 @@ Scripts/            # Translation checker/refresh, sidecar
 
 ## Testing
 
-`Tests/1.6/` holds an xUnit (net472) suite. This mod has no extractable pure logic, so the tests pin what breaks silently at runtime: Harmony patch targets (including the string-literal `"RegenerateStock"` name), postfix wiring, the interaction worker's override shape, and the `BionicThumbDefOf` field both patches rely on. Tests are headless — anything needing `DefDatabase`/`Current.Game`/`ThingMaker` is out of scope. Run natively with `dotnet test Tests/1.6/BionicThumbGuild.Tests.csproj` — vstest hosts the net472 suite via mono. If a run fails with `BadImageFormatException`/`TypeLoadException`, a DLL is missing from the test csproj copy target (see the Assembly-CSharp-firstpass comment there): mono resolves field types eagerly where the Windows CLR is lazy. CI builds the Tests project but does not run it. The release skill runs the suite and a Release build as its first gate.
+`Tests/1.6/` holds an xUnit (net472) suite. This mod has no extractable pure logic, so the tests pin what breaks silently at runtime: Harmony patch targets (including the string-literal `"RegenerateStock"` name), postfix wiring, the interaction worker's override shape, and the `BionicThumbDefOf` field both patches rely on. Tests are headless — anything needing `DefDatabase`/`Current.Game`/`ThingMaker` is out of scope. Run natively with `dotnet test Tests/1.6/BionicThumbGuild.Tests.csproj` — vstest hosts the net472 suite via mono. The suite loads the game's real 1.6 runtime assemblies (Krafs's reference-only stubs cannot be loaded at run time); the Tests csproj resolves their folder in order: `RIMWORLD_MANAGED_1_6`, then a 1.6 install's `<Data>/Managed/`, then the frozen copy at `~/.local/share/RimWorld-1.6/Managed` (its README.txt records provenance). A 1.7 install has no 1.6 assemblies at all, so on 1.7 the frozen copy is the only source; without one the build still succeeds on the Krafs fallback but every test fails with `TypeLoadException` on Assembly-CSharp, and that fallback run overwrites any real DLLs an earlier build had copied into the test bin. Otherwise, if a run fails with `BadImageFormatException`/`TypeLoadException`, a DLL is missing from the test csproj copy target (see the Assembly-CSharp-firstpass comment there): mono resolves field types eagerly where the Windows CLR is lazy. CI builds the Tests project but does not run it. The release skill runs the suite and a Release build as its first gate.
 
 **Startup smoke test (pre-release):** `python3 Scripts/integration-smoke-test.py` (game closed) boots the mod on its pinned minimal list, then classifies Player.log errors by origin and fails on anything attributed to this mod. Run before every release (wired into the release skill); thin shim over the shared engine in `l10n/smoke/` (born from the BetterTradersGuild v1.1.0 CWTL incident).
 
@@ -132,7 +132,7 @@ Roslynator.Analyzers runs on every build (`PrivateAssets=all` so nothing ships);
 
 ## Debugging
 
-Use the `rimworld-logs` skill — it covers Player.log locations (Windows/WSL/Linux), the `[Bionic Thumb Guild]` log prefix, and API disassembly (`monodis`/`ilspycmd` against the live install's `Assembly-CSharp.dll`, preferred over the `Krafs.Rimworld.Ref` CI fallback).
+Use the `rimworld-logs` skill — it covers Player.log locations (Windows/WSL/Linux), the `[Bionic Thumb Guild]` log prefix, and API disassembly (`monodis`/`ilspycmd` against the live install's `Assembly-CSharp.dll`, preferred over the `Krafs.Rimworld.Ref` package the build compiles against). The 1.7 log is `Logs/Player.log` (timestamps, levels and stack frames on every entry; the 1.6 `Player.log` one level up is left in place, stale), and the 1.7 assembly sits flat in the install root with `UnityStubs.dll` beside it for Unity-facing signatures (1.6: `RimWorldWin64_Data/Managed/`). The local install's assembly is now the 1.7 one, so a decompile-verified call path in a code header that was verified on 1.6 should say so if it is re-verified on 1.7 and differs.
 
 ## Harmony Patch Examples
 

@@ -2,7 +2,7 @@
 
 > A RimWorld mod that adds the Bionic Thumb Guild's flagship product: a full bionic hand that they insist on calling a thumb
 
-[![RimWorld](https://img.shields.io/badge/RimWorld-1.6-blue.svg)](https://rimworldgame.com/)
+[![RimWorld](https://img.shields.io/badge/RimWorld-1.6%20%7C%201.7-blue.svg)](https://rimworldgame.com/)
 [![Subscribers](https://img.shields.io/steam/subscriptions/3685368854?logo=steam&label=subscribers)](https://steamcommunity.com/sharedfiles/filedetails/?id=3685368854)
 [![Downloads](https://img.shields.io/steam/downloads/3685368854?logo=steam&label=downloads)](https://steamcommunity.com/sharedfiles/filedetails/?id=3685368854)
 [![Favorites](https://img.shields.io/steam/favorites/3685368854?logo=steam&label=favorites)](https://steamcommunity.com/sharedfiles/filedetails/?id=3685368854)
@@ -26,7 +26,7 @@ This mod adds the Bionic Thumb as a hand prosthetic with 120% manipulation effic
 
 ## Requirements
 
-- **RimWorld 1.6** or later
+- **RimWorld 1.6** or **1.7**
 - **Harmony** (auto-download from Steam Workshop if you don't have it)
 - No DLC required
 
