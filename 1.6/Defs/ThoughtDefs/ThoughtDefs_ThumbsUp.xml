@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <!-- Social thought: opinion modifier between pawns -->
+  <ThoughtDef>
+    <defName>BTG_ThumbsUp</defName>
+    <thoughtClass>Thought_MemorySocial</thoughtClass>
+    <durationDays>20</durationDays>
+    <stackLimit>300</stackLimit>
+    <stackLimitForSameOtherPawn>10</stackLimitForSameOtherPawn>
+    <stackedEffectMultiplier>0.9</stackedEffectMultiplier>
+    <stages>
+      <li>
+        <label>thumbs up</label>
+        <baseOpinionOffset>5</baseOpinionOffset>
+      </li>
+    </stages>
+    <thoughtToMake>BTG_ThumbsUpMood</thoughtToMake>
+  </ThoughtDef>
+
+  <!-- Mood thought: personal mood buff, stages escalate per stack -->
+  <ThoughtDef>
+    <defName>BTG_ThumbsUpMood</defName>
+    <durationDays>1</durationDays>
+    <stackLimit>5</stackLimit>
+    <stagesStack>true</stagesStack>
+    <stages>
+      <li>
+        <label>thumbs up</label>
+        <description>A bionic thumb was raised in my direction. The whole hand moved, but the thumb was clearly in charge.</description>
+        <baseMoodEffect>2</baseMoodEffect>
+      </li>
+      <li>
+        <label>two thumbs up</label>
+        <description>Two bionic thumbs up! The stereo servo whir is oddly moving. Maybe the Guild is onto something.</description>
+        <baseMoodEffect>2</baseMoodEffect>
+      </li>
+      <li>
+        <label>three thumbs up</label>
+        <description>Three bionic thumbs up! I keep thinking about the engineering. Do they have a newsletter or something?</description>
+        <baseMoodEffect>3</baseMoodEffect>
+      </li>
+      <li>
+        <label>four thumbs up</label>
+        <description>Four bionic thumbs up! The neural feedback is apparently so precise they can feel me smiling back.</description>
+        <baseMoodEffect>3</baseMoodEffect>
+      </li>
+      <li>
+        <label>five thumbs up</label>
+        <description>Five bionic thumbs up! High-fives are now Predator handshakes.</description>
+        <baseMoodEffect>5</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+</Defs>

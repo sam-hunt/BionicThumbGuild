@@ -28,6 +28,26 @@
         "required": true
       }
     },
+    "InteractionDef": {
+      "BTG_ThumbsUp.label": {
+        "english": "thumbs up",
+        "required": true
+      },
+      "BTG_ThumbsUp.logRulesInitiator.rulesStrings": {
+        "english": [
+          "r_logentry->[INITIATOR_nameDef] gave [RECIPIENT_nameDef] a thumbs up.",
+          "r_logentry->[INITIATOR_nameDef] flashed [RECIPIENT_nameDef] a bionic thumbs up.",
+          "r_logentry->[INITIATOR_nameDef] made a thumbs-up gesture at [RECIPIENT_nameDef].",
+          "r_logentry->[INITIATOR_nameDef] pointed a bionic thumb at [RECIPIENT_nameDef] approvingly.",
+          "r_logentry->[INITIATOR_nameDef] gave [RECIPIENT_nameDef] a thumbs up so enthusiastic the servo whirred.",
+          "r_logentry->[INITIATOR_nameDef] extended a gleaming bionic thumb in [RECIPIENT_nameDef]'s direction.",
+          "r_logentry->[INITIATOR_nameDef] did the thumb thing at [RECIPIENT_nameDef] again."
+        ],
+        "isCollection": true,
+        "fullListAllowed": true,
+        "required": true
+      }
+    },
     "RecipeDef": {
       "BTG_InstallBionicThumb.description": {
         "english": "Install a bionic thumb. It's a whole hand, but the Guild insists you call it a thumb.",
@@ -50,6 +70,63 @@
       "BTG_BionicThumb.label": {
         "english": "bionic thumb",
         "required": true
+      }
+    },
+    "ThoughtDef": {
+      "BTG_ThumbsUp.stages.thumbs_up.label": {
+        "english": "thumbs up",
+        "required": true,
+        "normalized": "BTG_ThumbsUp.stages.0.label"
+      },
+      "BTG_ThumbsUpMood.stages.five_thumbs_up.description": {
+        "english": "Five bionic thumbs up! High-fives are now Predator handshakes.",
+        "required": true,
+        "normalized": "BTG_ThumbsUpMood.stages.4.description"
+      },
+      "BTG_ThumbsUpMood.stages.five_thumbs_up.label": {
+        "english": "five thumbs up",
+        "required": true,
+        "normalized": "BTG_ThumbsUpMood.stages.4.label"
+      },
+      "BTG_ThumbsUpMood.stages.four_thumbs_up.description": {
+        "english": "Four bionic thumbs up! The neural feedback is apparently so precise they can feel me smiling back.",
+        "required": true,
+        "normalized": "BTG_ThumbsUpMood.stages.3.description"
+      },
+      "BTG_ThumbsUpMood.stages.four_thumbs_up.label": {
+        "english": "four thumbs up",
+        "required": true,
+        "normalized": "BTG_ThumbsUpMood.stages.3.label"
+      },
+      "BTG_ThumbsUpMood.stages.three_thumbs_up.description": {
+        "english": "Three bionic thumbs up! I keep thinking about the engineering. Do they have a newsletter or something?",
+        "required": true,
+        "normalized": "BTG_ThumbsUpMood.stages.2.description"
+      },
+      "BTG_ThumbsUpMood.stages.three_thumbs_up.label": {
+        "english": "three thumbs up",
+        "required": true,
+        "normalized": "BTG_ThumbsUpMood.stages.2.label"
+      },
+      "BTG_ThumbsUpMood.stages.thumbs_up.description": {
+        "english": "A bionic thumb was raised in my direction. The whole hand moved, but the thumb was clearly in charge.",
+        "required": true,
+        "normalized": "BTG_ThumbsUpMood.stages.0.description"
+      },
+      "BTG_ThumbsUpMood.stages.thumbs_up.label": {
+        "english": "thumbs up",
+        "required": true,
+        "normalized": "BTG_ThumbsUpMood.stages.0.label"
+      },
+      "BTG_ThumbsUpMood.stages.two_thumbs_up.description": {
+        "english": "Two bionic thumbs up! The stereo servo whir is oddly moving. Maybe the Guild is onto something.",
+        "required": true,
+        "normalized": "BTG_ThumbsUpMood.stages.1.description"
+      },
+      "BTG_ThumbsUpMood.stages.two_thumbs_up.label": {
+        "english": "two thumbs up",
+        "required": true,
+        "normalized": "BTG_ThumbsUpMood.stages.1.label"
       }
     }
   }
