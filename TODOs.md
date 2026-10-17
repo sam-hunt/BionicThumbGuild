@@ -2,8 +2,12 @@
 
 ## Features
 
+- Request thumb social interaction mote texture from IcingWithCheeseCake
 - Test thumbs up interaction/moodlet (parked on `feat/thumbs-up`, pulled from `main` ahead of the 1.7 release)
   `claude --resume "rimworld-mood-progression-thumbs"`
+
+- can harmony patches be replaced with stock generators or will these be rejected for traders which dont sell bionics normally?
+- check compatible with GTG trader core which messes with sellability
 
 - Backport improved build/ci architecture from AAH
 - Add thumbs down interaction/moodlet

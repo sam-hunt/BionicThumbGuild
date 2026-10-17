@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.1] - 2026-10-18
+
+### Changed
+
+- Preview image now shows RimWorld 1.7
+
 ## [1.1.0] - 2026-10-15
 
 ### Added
@@ -26,6 +32,7 @@ Initial release of Bionic Thumb Guild for RimWorld 1.6.
 - Orbital traders now stock 2x Bionic Thumbs via Harmony postfix patch
 - Requires [Harmony](https://github.com/pardeike/HarmonyRimWorld); no DLC required
 
-[Unreleased]: https://github.com/sam-hunt/BionicThumbGuild/compare/v1.1.0...HEAD
+[Unreleased]: https://github.com/sam-hunt/BionicThumbGuild/compare/v1.1.1...HEAD
+[1.1.1]: https://github.com/sam-hunt/BionicThumbGuild/releases/tag/v1.1.1
 [1.1.0]: https://github.com/sam-hunt/BionicThumbGuild/releases/tag/v1.1.0
 [1.0.0]: https://github.com/sam-hunt/BionicThumbGuild/releases/tag/v1.0.0
